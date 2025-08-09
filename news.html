@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News API Example</title>
+</head>
+<body>
+    <h1>Latest News</h1>
+    <div id="news"></div>
+
+    <script>
+        const apiKey = "YOUR_API_KEY_HERE"; // Paste your key here
+        const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                let newsHTML = "";
+                data.articles.forEach(article => {
+                    newsHTML += `
+                        <h2>${article.title}</h2>
+                        <p>${article.description}</p>
+                        <a href="${article.url}" target="_blank">Read More</a>
+                        <hr>
+                    `;
+                });
+                document.getElementById("news").innerHTML = newsHTML;
+            })
+            .catch(error => console.error(error));
+    </script>
+</body>
+</html>
